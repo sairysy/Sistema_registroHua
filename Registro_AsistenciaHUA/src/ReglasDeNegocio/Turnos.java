@@ -114,7 +114,7 @@ public class Turnos {
           obj=null;
           while (rs.next()) {
               obj= new Turnos();
-              obj.setIdturno(rs.getInt("pidturnos"));
+              obj.setIdturno(rs.getInt("pidturno"));
               Codpago codpago=new Codpago();
               Codpago codpagos=codpago.codigopago_buscarporid(rs.getInt("pidcodpago"));
               obj.setCodpago(codpagos);
@@ -160,7 +160,7 @@ public class Turnos {
           obj=null;
           while (rs.next()) {
               obj= new Turnos();
-              obj.setIdturno(rs.getInt("pidturnos"));
+              obj.setIdturno(rs.getInt("pidturno"));
               Codpago codpago=new Codpago();
               Codpago codpagos=codpago.codigopago_buscarporid(rs.getInt("pidcodpago"));
               obj.setCodpago(codpagos);
@@ -228,14 +228,14 @@ public class Turnos {
           //CREAMOS EL PRIMER COMANDO QUE SERA AÑADIDO AL ARRAYLIST D COMANDOS
           Comando cmd= new Comando();
           //SETEAMOS LA FUNCION AL COMAND0
-          cmd.setSetenciaSql("select * from public.turnos_editar(?,?,?,?,?,?)");
+          cmd.setSetenciaSql("select * from public.turno_editar(?,?,?,?,?,?)");
           //CREAMOS EL ARRALIST DE PARAMETROS PARA ASIGANR A MI PRIMER COMANDO
           ArrayList<Parametro> parametros = new ArrayList<Parametro>();
           //llenamos el arraylist con todos los parametros
-          parametros.add(new Parametro(1,turnos.getIdturno()));
+          parametros.add(new Parametro(1, turnos.getIdturno()));
           parametros.add(new Parametro(2, turnos.getCodpago().getIdcodpago()));
           parametros.add(new Parametro(3, turnos.getHorario().getIdhorario()));
-          parametros.add(new Parametro(4,turnos.getNombreturno()));
+          parametros.add(new Parametro(4, turnos.getNombreturno()));
           parametros.add(new Parametro(5, turnos.getHora_entrada()));
           parametros.add(new Parametro(6, turnos.getHora_salida()));
           //llenar el comando con los parametros

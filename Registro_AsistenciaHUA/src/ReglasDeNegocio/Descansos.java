@@ -1,67 +1,94 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ReglasDeNegocio;
-import AccesoADatos.*;
-import java.sql.*;
-import java.util.*;
+
+import AccesoADatos.Comando;
+import AccesoADatos.Conexion;
+import AccesoADatos.Global;
+import AccesoADatos.Parametro;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
-public class Departamento {
-  public int iddepartamento;
-  public Empresa departamento;
-  public Turnos turnos;
-  public String nombredepartamento;
-  
+import java.util.ArrayList;
 
-    public Departamento() {
+/**
+ *
+ * @author sairy
+ */
+public class Descansos {
+    public int iddescanso;
+    public  String nombdescanso;
+    public  String hora_inicio;
+    public  String hora_fin;
+    public  String estado_cobro;
+
+    public Descansos() {
     }
 
-    public Departamento(int iddepartamento, Empresa departamento, Turnos turnos, String nombredepartamento) {
-        this.iddepartamento = iddepartamento;
-        this.departamento = departamento;
-        this.turnos = turnos;
-        this.nombredepartamento = nombredepartamento;
+    public Descansos(int iddescanso, String nombdescanso, String hora_inicio, String hora_fin, String estado_cobro) {
+        this.iddescanso = iddescanso;
+        this.nombdescanso = nombdescanso;
+        this.hora_inicio = hora_inicio;
+        this.hora_fin = hora_fin;
+        this.estado_cobro = estado_cobro;
     }
 
-    public int getIddepartamento() {
-        return iddepartamento;
+    public int getIddescanso() {
+        return iddescanso;
     }
 
-    public void setIddepartamento(int iddepartamento) {
-        this.iddepartamento = iddepartamento;
+    public void setIddescanso(int iddescanso) {
+        this.iddescanso = iddescanso;
     }
 
-    public Empresa getEmpresa() {
-        return departamento;
+    public String getNombdescanso() {
+        return nombdescanso;
     }
 
-    public void setEmpresa(Empresa departamento) {
-        this.departamento = departamento;
+    public void setNombdescanso(String nombdescanso) {
+        this.nombdescanso = nombdescanso;
     }
 
-    public Turnos getTurnos() {
-        return turnos;
+    public String getHora_inicio() {
+        return hora_inicio;
     }
 
-    public void setTurnos(Turnos turnos) {
-        this.turnos = turnos;
+    public void setHora_inicio(String hora_inicio) {
+        this.hora_inicio = hora_inicio;
     }
 
-    public String getNombredepartamento() {
-        return nombredepartamento;
+    public String getHora_fin() {
+        return hora_fin;
     }
 
-    public void setNombredepartamento(String nombredepartamento) {
-        this.nombredepartamento = nombredepartamento;
+    public void setHora_fin(String hora_fin) {
+        this.hora_fin = hora_fin;
     }
-   
-   
+
+    public String getEstado_cobro() {
+        return estado_cobro;
+    }
+
+    public void setEstado_cobro(String estado_cobro) {
+        this.estado_cobro = estado_cobro;
+    }
+
+    
+
+     
 @Override
     public String toString() {
-        return getNombredepartamento();
+        return getNombdescanso();
     }
-    public static ArrayList<Departamento> departamento_buscartodos() throws Exception
+    public static ArrayList<Descansos> descansos_buscartodos() throws Exception
     {
          //CREO LISTA QUE RECIBIRA LOS DATOS DEL RESULSET
-        ArrayList<Departamento> lista= new ArrayList<Departamento>();
-          Departamento obj= new Departamento();
+        ArrayList<Descansos> lista= new ArrayList<Descansos>();
+          Descansos obj= new Descansos();
        ResultSet rs= null;
       //LLAMO LA CONEXION
       Conexion con= new Conexion(Global.driver, Global.url, Global.user, Global.pass);
@@ -69,22 +96,19 @@ public class Departamento {
       PreparedStatement preStm= null;
       try {
           //declaro mi sql
-          String sql= "select * from public.departamento_obtener()";
+          String sql= "select * from public.descanso_buscartodos()";
           //creo mi preparedstatement
           preStm=con.creaPreparedSmt(sql);
           //ejecuto el prepardestatement y le asigno a mi resulset
           rs= con.ejecutaPrepared(preStm);
           obj=null;
           while (rs.next()) {
-              obj= new Departamento();
-              obj.setIddepartamento(rs.getInt("piddepartamento"));
-              Empresa empresa=new Empresa();
-              Empresa empresas=empresa.empresa_buscarporid(rs.getInt("pidempresa"));
-              obj.setEmpresa(empresas);
-              Turnos turno=new Turnos();
-              Turnos turnoss=turno.turnos_buscarporid(rs.getInt("pidturno"));
-              obj.setTurnos(turnoss);
-              obj.setNombredepartamento(rs.getString("pnombredepartamento"));
+              obj= new Descansos();
+              obj.setIddescanso(rs.getInt("piddescanso"));
+              obj.setNombdescanso(rs.getString("pnombdescanso"));
+              obj.setHora_inicio(rs.getString("phora_inicio"));
+              obj.setHora_fin(rs.getString("phora_fin"));
+              obj.setEstado_cobro(rs.getString("pestado_cobro"));
               
               lista.add(obj);
           }
@@ -99,11 +123,11 @@ public class Departamento {
       }
             return lista;
     }
-    public static Departamento departamento_buscarporid(int piddepartamento) throws Exception
+    public static Descansos descansos_buscarporid(int piddescansos) throws Exception
     {
          //CREO LISTA QUE RECIBIRA LOS DATOS DEL RESULSET
-       ArrayList<Departamento> lista= new ArrayList<Departamento>();
-       Departamento obj= new Departamento();
+       ArrayList<Descansos> lista= new ArrayList<Descansos>();
+       Descansos obj= new Descansos();
        ResultSet rs= null;
       //LLAMO LA CONEXION
       Conexion con= new Conexion(Global.driver, Global.url, Global.user, Global.pass);
@@ -111,24 +135,20 @@ public class Departamento {
       PreparedStatement preStm= null;
       try {
           //declaro mi sql
-          String sql= "select * from public.departamento_buscarporid(?)";
+          String sql= "select * from public.descanso_buscarporid(?)";
           //creo mi preparedstatement
           preStm=con.creaPreparedSmt(sql);
           //ejecuto el prepardestatement y le asigno a mi resulset
-          preStm.setInt(1, piddepartamento);
+          preStm.setInt(1, piddescansos);
           rs= con.ejecutaPrepared(preStm);
           obj=null;
           while (rs.next()) {
-              obj= new Departamento();
-              obj.setIddepartamento(rs.getInt("piddepartamento"));
-              Empresa empresa=new Empresa();
-              Empresa empresas=empresa.empresa_buscarporid(rs.getInt("pidempresa"));
-              obj.setEmpresa(empresas);
-              Turnos turno=new Turnos();
-              Turnos turnoss=turno.turnos_buscarporid(rs.getInt("pidturno"));
-              obj.setTurnos(turnoss);
-              obj.setNombredepartamento(rs.getString("pnombredepartamento"));
-              
+              obj= new Descansos();
+              obj.setIddescanso(rs.getInt("piddescanso"));
+              obj.setNombdescanso(rs.getString("pnombdescanso"));
+              obj.setHora_inicio(rs.getString("phora_inicio"));
+              obj.setHora_fin(rs.getString("phora_fin"));
+              obj.setEstado_cobro(rs.getString("pestado_cobro"));
               lista.add(obj);
           }
       } catch (SQLException e) {
@@ -142,7 +162,7 @@ public class Departamento {
       }
             return obj;
     }
-     public static boolean departamento_insertar(Departamento departamento) throws Exception
+     public static boolean descansos_insertar(Descansos descansos) throws Exception
   {
       boolean respuesta=false;
       Conexion con = new Conexion(Global.driver, Global.url, Global.user, Global.pass);
@@ -152,13 +172,15 @@ public class Departamento {
           //CREAMOS EL PRIMER COMANDO QUE SERA AÑADIDO AL ARRAYLIST D COMANDOS
           Comando cmd= new Comando();
           //SETEAMOS LA FUNCION AL COMAND0
-          cmd.setSetenciaSql("select * from public.departamento_insertar(?,?,?)");
+          cmd.setSetenciaSql("select * from public.descanso_insertar(?,?,?,?)");
           //CREAMOS EL ARRALIST DE PARAMETROS PARA ASIGANR A MI PRIMER COMANDO
           ArrayList<Parametro> parametros = new ArrayList<Parametro>();
           //llenamos el arraylist con todos los parametros
-          parametros.add(new Parametro(1, departamento.getEmpresa().getIdempresa()));
-          parametros.add(new Parametro(2, departamento.getTurnos().getIdturno()));
-          parametros.add(new Parametro(3, departamento.getNombredepartamento()));
+          
+          parametros.add(new Parametro(1,descansos.getNombdescanso()));
+          parametros.add(new Parametro(2, descansos.getHora_inicio()));
+          parametros.add(new Parametro(3, descansos.getHora_fin()));
+          parametros.add(new Parametro(4, descansos.getEstado_cobro()));
           
           //llenar el comando con los parametros
           cmd.setLstParametros(parametros);
@@ -174,7 +196,7 @@ public class Departamento {
       }
       return respuesta;
   }
-     public static boolean departamento_editar(Departamento departamento) throws Exception
+     public static boolean descansos_editar(Descansos descansos) throws Exception
   {
       boolean respuesta=false;
       Conexion con = new Conexion(Global.driver, Global.url, Global.user, Global.pass);
@@ -184,14 +206,15 @@ public class Departamento {
           //CREAMOS EL PRIMER COMANDO QUE SERA AÑADIDO AL ARRAYLIST D COMANDOS
           Comando cmd= new Comando();
           //SETEAMOS LA FUNCION AL COMAND0
-          cmd.setSetenciaSql("select * from public.departamento_editar(?,?,?,?)");
+          cmd.setSetenciaSql("select * from public.descanso_editar(?,?,?,?,?)");
           //CREAMOS EL ARRALIST DE PARAMETROS PARA ASIGANR A MI PRIMER COMANDO
           ArrayList<Parametro> parametros = new ArrayList<Parametro>();
           //llenamos el arraylist con todos los parametros
-          parametros.add(new Parametro(1, departamento.getIddepartamento()));
-          parametros.add(new Parametro(2, departamento.getEmpresa().getIdempresa()));
-          parametros.add(new Parametro(3, departamento.getTurnos().getIdturno()));
-          parametros.add(new Parametro(4, departamento.getNombredepartamento()));
+          parametros.add(new Parametro(1,descansos.getIddescanso()));
+          parametros.add(new Parametro(2,descansos.getNombdescanso()));
+          parametros.add(new Parametro(3, descansos.getHora_inicio()));
+          parametros.add(new Parametro(4, descansos.getHora_fin()));
+          parametros.add(new Parametro(5, descansos.getEstado_cobro()));
           //llenar el comando con los parametros
           cmd.setLstParametros(parametros);
           comandos.add(cmd);
@@ -206,7 +229,7 @@ public class Departamento {
       }
       return respuesta;
   }
-       public static boolean departamento_eliminar(int piiddepartamento) throws Exception
+       public static boolean descansos_eliminar(int piiddescanso) throws Exception
   {
       boolean respuesta=false;
       Conexion con = new Conexion(Global.driver, Global.url, Global.user, Global.pass);
@@ -216,11 +239,11 @@ public class Departamento {
           //CREAMOS EL PRIMER COMANDO QUE SERA AÃ‘ADIDO AL ARRAYLIST D COMANDOS
           Comando cmd= new Comando();
           //SETEAMOS LA FUNCION AL COMAND0
-          cmd.setSetenciaSql("select * from public.departamento_eliminar(?)");
+          cmd.setSetenciaSql("select * from public.descanso_eliminar(?)");
           //CREAMOS EL ARRALIST DE PARAMETROS PARA ASIGANR A MI PRIMER COMANDO
           ArrayList<Parametro> parametros = new ArrayList<Parametro>();
           //llenamos el arraylist con todos los parametros
-          parametros.add(new Parametro(1, piiddepartamento));
+          parametros.add(new Parametro(1, piiddescanso));
           //llenar el comando con los parametros
           cmd.setLstParametros(parametros);
           comandos.add(cmd);

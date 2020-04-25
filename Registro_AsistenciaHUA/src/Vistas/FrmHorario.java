@@ -363,6 +363,8 @@ public class FrmHorario extends javax.swing.JFrame {
         });
 
         txtInicio.setEditable(false);
+        txtInicio.setEnabled(false);
+        txtInicio.setFocusable(false);
         txtInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtInicioActionPerformed(evt);
@@ -591,8 +593,7 @@ Menu obj=new Menu();
             if(btnNuevo.getText().compareTo("Registrar")==0){
                 try {
                     Horario horario = new Horario();
-                    ;
-                    ;
+                    
                     horario.setNombre(txtNombre.getText());
                     horario.setHora_inicio(txtInicio.getText());
                     horario.setHora_final(txtFin.getText());

@@ -6,44 +6,41 @@
 package Vistas;
 
 import ReglasDeNegocio.Ciudad;
-import ReglasDeNegocio.Codpago;
+import ReglasDeNegocio.Descansos;
+import ReglasDeNegocio.Horario_descanso;
 import ReglasDeNegocio.Horario;
-import ReglasDeNegocio.Turnos;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 //////import net.sf.jasperreports.engine.JRException;
 //////import reportes.Reportes;
 
-public class FrmTurnos extends javax.swing.JFrame {
+public class FrmHorariodescanso extends javax.swing.JFrame {
 
     /**
-     * Creates new form Turnos
+     * Creates new form Horario_descanso
      */
-    public FrmTurnos() {
+    public FrmHorariodescanso() {
         initComponents();
         this.setLocationRelativeTo(null);
         llenar();
-        cargarCodpago();
         cargarHorario();
+        cargarDescanso();
         
         
     }
   private void limpiarControles() {
         txtCodigo.setText("");
-        jComboBoxPago.setSelectedIndex(0);
         jComboBoxHorario.setSelectedIndex(0);
-        txtNombre.setText("");
-        txtInicio.setText("");
-        txtFin.setText("");
+        jComboBoxReceso.setSelectedIndex(0);
+        txtEstado.setText("");
+       
+        
         
     }
      @SuppressWarnings("unchecked")
@@ -62,30 +59,18 @@ public class FrmTurnos extends javax.swing.JFrame {
         lblCodigo = new javax.swing.JLabel();
         lblCiudad = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtEstado = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         bntImprimir = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        TablaListarTurnos = new javax.swing.JTable();
+        TablaListarHDescanso = new javax.swing.JTable();
         txtCodigobuscar = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
         jComboBoxHorario = new javax.swing.JComboBox<>();
         lblCiudad1 = new javax.swing.JLabel();
-        jComboBoxPago = new javax.swing.JComboBox<>();
-        lblNoH6 = new javax.swing.JLabel();
-        lblNoH7 = new javax.swing.JLabel();
-        lblNoH8 = new javax.swing.JLabel();
-        txtInicio = new javax.swing.JTextField();
-        txtFin = new javax.swing.JTextField();
-        Date date = new Date();
-        SpinnerDateModel sm =
-        new SpinnerDateModel(date, null, null, Calendar.HOUR);
-        jspinerinicio = new javax.swing.JSpinner(sm);
-        SpinnerDateModel fm =
-        new SpinnerDateModel(date,null,null,Calendar.HOUR_OF_DAY);
-        spinnerfinal = new javax.swing.JSpinner(fm);
+        jComboBoxReceso = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -114,7 +99,7 @@ public class FrmTurnos extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel4.setText("Turnos");
+        jLabel4.setText("Detalle Horario-Descanso");
 
         lblBuscarCodigo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblBuscarCodigo.setForeground(new java.awt.Color(0, 0, 102));
@@ -139,15 +124,15 @@ public class FrmTurnos extends javax.swing.JFrame {
 
         lblCiudad.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCiudad.setForeground(new java.awt.Color(0, 0, 102));
-        lblCiudad.setText("Horario:");
+        lblCiudad.setText("Horario");
 
         lblNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(0, 0, 102));
-        lblNombre.setText("Nombre:");
+        lblNombre.setText("Estado:");
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+                txtEstadoActionPerformed(evt);
             }
         });
 
@@ -188,24 +173,24 @@ public class FrmTurnos extends javax.swing.JFrame {
             }
         });
 
-        TablaListarTurnos.setModel(new javax.swing.table.DefaultTableModel(
+        TablaListarHDescanso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Pago", "Horario", "Nombre", "Inicio", "Fin"
+                "Codigo", "Horario", "Receso", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        TablaListarTurnos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jScrollPane3.setViewportView(TablaListarTurnos);
+        TablaListarHDescanso.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane3.setViewportView(TablaListarHDescanso);
 
         txtCodigobuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,48 +213,11 @@ public class FrmTurnos extends javax.swing.JFrame {
 
         lblCiudad1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCiudad1.setForeground(new java.awt.Color(0, 0, 102));
-        lblCiudad1.setText("Pago:");
+        lblCiudad1.setText("Receso:");
 
-        jComboBoxPago.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxReceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxPagoActionPerformed(evt);
-            }
-        });
-
-        lblNoH6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblNoH6.setForeground(new java.awt.Color(0, 0, 102));
-        lblNoH6.setText("Inicio:");
-
-        lblNoH7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblNoH7.setForeground(new java.awt.Color(0, 0, 102));
-        lblNoH7.setText("HORA-FECHA");
-
-        lblNoH8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblNoH8.setForeground(new java.awt.Color(0, 0, 102));
-        lblNoH8.setText("Fin:");
-
-        txtInicio.setEditable(false);
-        txtInicio.setEnabled(false);
-        txtInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInicioActionPerformed(evt);
-            }
-        });
-
-        txtFin.setEditable(false);
-        txtFin.setEnabled(false);
-
-        //JSpinner.DateEditor de = new JSpinner.DateEditor(jspinerinicio, "HH:mm:ss");
-        //jspinerinicio.setEditor(de);
-        jspinerinicio.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jspinerinicioValueSpiner(evt);
-            }
-        });
-
-        spinnerfinal.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spinnerfinalvalueSpinner2(evt);
+                jComboBoxRecesoActionPerformed(evt);
             }
         });
 
@@ -278,143 +226,129 @@ public class FrmTurnos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(lblBuscarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(txtCodigobuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(btnBuscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(389, 389, 389)
-                        .addComponent(btnVolver)
-                        .addGap(45, 45, 45)
-                        .addComponent(btnSalir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(419, 419, 419)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addComponent(jSeparator1))
+                        .addComponent(jSeparator1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(184, 184, 184)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(78, 78, 78)
-                                .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNoH7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(208, 208, 208))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 955, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblCiudad)
-                                    .addComponent(lblCiudad1))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxHorario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblCiudad)
+                                        .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblCiudad1)
+                                        .addGap(14, 14, 14)))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(108, 108, 108)
+                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxReceso, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo)
-                                .addGap(44, 44, 44)
-                                .addComponent(btnEliminar)
-                                .addGap(46, 46, 46)
-                                .addComponent(btnModificar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNoH6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNoH8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(17, 17, 17)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(bntImprimir))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                                    .addComponent(txtFin))
-                                .addGap(18, 18, 18)
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnNuevo)
+                                    .addComponent(lblBuscarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spinnerfinal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jspinerinicio, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(34, 34, 34)
+                                        .addComponent(txtCodigobuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(49, 49, 49)
+                                        .addComponent(btnBuscar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(btnEliminar)
+                                        .addGap(43, 43, 43)
+                                        .addComponent(btnModificar))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(310, 310, 310)
+                                .addComponent(btnVolver)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir)
+                        .addGap(504, 504, 504))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(329, 329, 329)
+                        .addComponent(jLabel4)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bntImprimir)
+                .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(39, 39, 39)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblBuscarCodigo)
                         .addComponent(txtCodigobuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnBuscar))
-                .addGap(14, 14, 14)
-                .addComponent(jLabel6)
-                .addGap(30, 30, 30)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCodigo)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblNoH7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCiudad1)
-                    .addComponent(jComboBoxPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNoH6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jspinerinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCiudad)
-                    .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNoH8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spinnerfinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNombre))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnModificar)
-                    .addComponent(bntImprimir))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(lblCodigo)
+                                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(33, 33, 33))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jComboBoxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblCiudad)))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblCiudad1)
+                                    .addComponent(jComboBoxReceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblNombre)
+                                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(bntImprimir))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNuevo)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnModificar))))
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver)
                     .addComponent(btnSalir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -430,26 +364,6 @@ Menu obj=new Menu();
         dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    public void cargarCodpago(){
-        jComboBoxPago.addItem("");
-       ArrayList<Codpago> list;
-       Codpago codpago = new Codpago();
-        try {
-            list = codpago.codigopago_buscartodos();
-            if(list.size()>0){
-                for (int i = 0; i < list.size(); i++) {
-                    int id = list.get(i).getIdcodpago();
-                    String name = list.get(i).getCodpagonombre();                    
-                    jComboBoxPago.addItem(new Codpago(id,name));
-                }
-            }   else{
-               
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al buscar pagos!!",
-                "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
     public void cargarHorario(){
         jComboBoxHorario.addItem("");
        ArrayList<Horario> list;
@@ -476,20 +390,45 @@ Menu obj=new Menu();
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    public void cargarDescanso(){
+        jComboBoxReceso.addItem("");
+       ArrayList<Descansos> list;
+       Descansos descansos = new Descansos();
+        try {
+            list = descansos.descansos_buscartodos();
+            if(list.size()>0){
+                for (int i = 0; i < list.size(); i++) {
+                    int id = list.get(i).getIddescanso();
+                    String name = list.get(i).getNombdescanso();
+                    String n1 = list.get(i).getHora_inicio();
+                    String n2 = list.get(i).getHora_fin();
+                    String n3 = list.get(i).getEstado_cobro();
+                    ;
+                    jComboBoxReceso.addItem(new Descansos (id,name,n1,n2,n3));
+                }
+            }   else{
+               
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al buscar recesos!!",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         
-        Turnos turnos = new Turnos();
+        Horario_descanso horario_descanso = new Horario_descanso();
         try {
             limpiarControles();
-            turnos = turnos.turnos_buscarporid(
+            horario_descanso = horario_descanso.horario_descanso_buscarporid(
                 Integer.parseInt(txtCodigobuscar.getText()));
-            if (turnos != null) {
-                txtCodigo.setText(Integer.toString(turnos.getIdturno()));
-                txtNombre.setText(turnos.getNombreturno());
-                txtInicio.setText(turnos.getHora_entrada());
-                txtFin.setText(turnos.getHora_salida());
-               
+            if (horario_descanso != null) {
+                txtCodigo.setText(Integer.toString(horario_descanso.getIdhorariodescanso()));
+                
+                txtEstado.setText(horario_descanso.getEstado());
+                
+              
                 
             }
         } catch (Exception ex) {
@@ -498,9 +437,9 @@ Menu obj=new Menu();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    }//GEN-LAST:event_txtEstadoActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (btnNuevo.getText().compareTo("Nuevo")==0) {
@@ -509,15 +448,13 @@ Menu obj=new Menu();
         }else{
             if(btnNuevo.getText().compareTo("Registrar")==0){
                 try {
-                    Turnos turnos = new Turnos();
-                    //FTurnos fturnos = new FTurnos();
-                   // turnos.setIdturnos(Integer.parseInt(txtCodigo.getText()));
-                    turnos.setCodpago((Codpago) jComboBoxPago.getSelectedItem());
-                    turnos.setHorario((Horario) jComboBoxHorario.getSelectedItem());
-                    turnos.setNombreturno(txtNombre.getText());
-                    turnos.setHora_entrada(txtInicio.getText());
-                    turnos.setHora_salida(txtFin.getText());
-                    if(turnos.turnos_insertar(turnos) ){
+                    Horario_descanso horario_descanso = new Horario_descanso();
+                    //FHorario_descanso fhorario_descanso = new FHorario_descanso();
+                   // horario_descanso.setIdhorario_descanso(Integer.parseInt(txtCodigo.getText()));
+                    horario_descanso.setHorario((Horario) jComboBoxHorario.getSelectedItem());
+                    horario_descanso.setDescansos((Descansos) jComboBoxReceso.getSelectedItem());
+                    horario_descanso.setEstado(txtEstado.getText());
+                    if(horario_descanso.horario_descanso_insertar(horario_descanso) ){
                        limpiarControles();
                         JOptionPane.showMessageDialog(this,"Registrado correctamente!!",
                             "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
@@ -533,15 +470,15 @@ Menu obj=new Menu();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Turnos turnos = new Turnos();
+        Horario_descanso horario_descanso = new Horario_descanso();
         int confirmacion = JOptionPane.showConfirmDialog(this,
             "¿Quiere eliminar ?", "Confirme",
             JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             try {
-                if (turnos.turnos_eliminar(Integer.parseInt(txtCodigo.getText()))) {
+                if (horario_descanso.horario_descanso_eliminar(Integer.parseInt(txtCodigo.getText()))) {
                     JOptionPane.showMessageDialog(this,
-                        "Turno eliminado correctamente!!",
+                        "Horario_descanso eliminado correctamente!!",
                         "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
                    limpiarControles();
                 }
@@ -554,20 +491,18 @@ Menu obj=new Menu();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        Turnos turnos = new Turnos();
+        Horario_descanso horario_descanso = new Horario_descanso();
         int confirmacion = JOptionPane.showConfirmDialog(this,
-            "¿Quiere modificar el turno?", "Confirme",
+            "¿Quiere modificar ?", "Confirme",
             JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             try {
-                    turnos.setIdturno(Integer.parseInt(txtCodigo.getText()));
-                    turnos.setCodpago((Codpago) jComboBoxPago.getSelectedItem());
-                    turnos.setHorario((Horario) jComboBoxHorario.getSelectedItem());
-                    turnos.setNombreturno(txtNombre.getText());
-                    turnos.setHora_entrada(txtInicio.getText());
-                    turnos.setHora_salida(txtFin.getText());
-                if(turnos.turnos_editar(turnos) ){
-                    JOptionPane.showMessageDialog(this,"Turnos modificado correctamente!!",
+                    horario_descanso.setIdhorariodescanso(Integer.parseInt(txtCodigo.getText()));
+                    horario_descanso.setHorario((Horario) jComboBoxHorario.getSelectedItem());
+                    horario_descanso.setDescansos((Descansos) jComboBoxReceso.getSelectedItem());
+                    horario_descanso.setEstado(txtEstado.getText());;                          
+                if(horario_descanso.horario_descanso_editar(horario_descanso) ){
+                    JOptionPane.showMessageDialog(this,"Modificado correctamente!!",
                         "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception ex) {
@@ -582,7 +517,7 @@ Menu obj=new Menu();
 
 //        try {
 //            Reportes reporte = new Reportes();
-//            reporte.ReporteTurnos ();
+//            reporte.ReporteHorario_descanso ();
 //        }catch (JRException ex) {
 //            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
 //        }catch (SQLException ex){
@@ -602,48 +537,25 @@ Menu obj=new Menu();
        
     }//GEN-LAST:event_jComboBoxHorarioActionPerformed
 
-    private void jComboBoxPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPagoActionPerformed
+    private void jComboBoxRecesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxRecesoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxPagoActionPerformed
-
-    private void txtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioActionPerformed
-
-    }//GEN-LAST:event_txtInicioActionPerformed
-
-    private void jspinerinicioValueSpiner(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jspinerinicioValueSpiner
-        String spinner ="";
-        Date myInt =(Date) jspinerinicio.getValue();
-        spinner = myInt.toString();
-        //spinner =(String) jspinerinicio.getValue();
-        txtInicio.setText(spinner) ;
-    }//GEN-LAST:event_jspinerinicioValueSpiner
-
-    private void spinnerfinalvalueSpinner2(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerfinalvalueSpinner2
-        // TODO add your handling code here:
-
-        String spinner1 ="";
-        Date myInt =(Date) spinnerfinal.getValue();
-        spinner1 = myInt.toString();
-        //spinner =(String) jspinerinicio.getValue();
-
-        txtFin.setText(spinner1) ;
-    }//GEN-LAST:event_spinnerfinalvalueSpinner2
+    }//GEN-LAST:event_jComboBoxRecesoActionPerformed
  public void llenar(){
-DefaultTableModel modelo = (DefaultTableModel) TablaListarTurnos.getModel();
-        ArrayList<Turnos> lista = new ArrayList<>();
+DefaultTableModel modelo = (DefaultTableModel) TablaListarHDescanso.getModel();
+        ArrayList<Horario_descanso> lista = new ArrayList<>();
         try {
-            Turnos fturnos = new Turnos();
-            lista = fturnos.turnos_buscartodos();
+            Horario_descanso fhorario_descanso = new Horario_descanso();
+            lista = fhorario_descanso.horario_descanso_buscartodos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),"Error",
                 JOptionPane.ERROR_MESSAGE);
         }
-         int filas=TablaListarTurnos.getRowCount()-1;
+         int filas=TablaListarHDescanso.getRowCount()-1;
             for(int i=filas; i>=0; i--){
                 modelo.removeRow(modelo.getRowCount()-1);
             } 
-        for(Turnos p : lista){
-            modelo.addRow(new Object[]{ p.getIdturno(),p.getCodpago(),p.getHorario(),p.getNombreturno(),p.getHora_entrada(),p.getHora_salida()});
+        for(Horario_descanso p : lista){
+            modelo.addRow(new Object[]{ p.getIdhorariodescanso(),p.getHorario(),p.getDescansos(),p.getEstado()});
         }}
                     
     /**
@@ -663,13 +575,13 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarTurnos.getModel();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHorariodescanso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHorariodescanso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHorariodescanso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHorariodescanso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -684,15 +596,15 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarTurnos.getModel();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmTurnos().setVisible(true);
+                new FrmHorariodescanso().setVisible(true);
             }
         });
     }
-   Turnos turnos ;
-   Ciudad ciudad;
+   Horario_descanso horario_descanso ;
    Horario horario;
+   Descansos descansos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaListarTurnos;
+    private javax.swing.JTable TablaListarHDescanso;
     private javax.swing.JButton bntImprimir;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
@@ -701,27 +613,20 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarTurnos.getModel();
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<Object> jComboBoxHorario;
-    private javax.swing.JComboBox<Object> jComboBoxPago;
+    private javax.swing.JComboBox<Object> jComboBoxReceso;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner jspinerinicio;
     private javax.swing.JLabel lblBuscarCodigo;
     private javax.swing.JLabel lblCiudad;
     private javax.swing.JLabel lblCiudad1;
     private javax.swing.JLabel lblCodigo;
-    private javax.swing.JLabel lblNoH6;
-    private javax.swing.JLabel lblNoH7;
-    private javax.swing.JLabel lblNoH8;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JSpinner spinnerfinal;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigobuscar;
-    private javax.swing.JTextField txtFin;
-    private javax.swing.JTextField txtInicio;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtEstado;
     // End of variables declaration//GEN-END:variables
 }

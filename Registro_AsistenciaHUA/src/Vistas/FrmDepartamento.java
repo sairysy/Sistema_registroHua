@@ -6,8 +6,10 @@
 package Vistas;
 
 import ReglasDeNegocio.Ciudad;
+import ReglasDeNegocio.Codpago;
 import ReglasDeNegocio.Departamento;
 import ReglasDeNegocio.Empresa;
+import ReglasDeNegocio.Horario;
 import ReglasDeNegocio.Turnos;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
@@ -29,6 +31,8 @@ public class FrmDepartamento extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         llenar();
+        cargarEmpresas();
+        cargarTurnos();
         //cargarDepartamento();
         
         
@@ -354,14 +358,23 @@ Menu obj=new Menu();
             if(list.size()>0){
                 for (int i = 0; i < list.size(); i++) {
                     int id = list.get(i).getIdempresa();
-                    String name = list.get(i).getNombreempresa();                    
-                   // jComboBoxEmpresa.addItem(new Empresa(id,name));
+                    Ciudad ciudad = list.get(i).getCiudad();
+                    String name = list.get(i).getNombreempresa();
+                    String hq = list.get(i).getDireccion1();
+                    String hw = list.get(i).getDireccion2();
+                    String he = list.get(i).getEstado();
+                    String hr = list.get(i).getSitioweb();
+                    String ht = list.get(i).getEmail();
+                    String hy = list.get(i).getTelefono();
+                    
+                    
+                    jComboBoxEmpresa.addItem(new Empresa(id,ciudad,name, hq,hw,he,hr,ht,hy));
                 }
             }   else{
                
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al buscar ciudades!!",
+            JOptionPane.showMessageDialog(this, "Error al buscar empresas!!",
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -374,14 +387,18 @@ Menu obj=new Menu();
             if(list.size()>0){
                 for (int i = 0; i < list.size(); i++) {
                     int id = list.get(i).getIdturno();
-                    String name = list.get(i).getNombreturno();                    
-                   // jComboBoxTurno.addItem(new Turnos(id,name));
+                    Codpago codpago = list.get(i).getCodpago();
+                    Horario horario = list.get(i).getHorario();
+                    String name = list.get(i).getNombreturno();
+                    String hq = list.get(i).getHora_entrada();
+                    String hw = list.get(i).getHora_salida();
+                   jComboBoxTurno.addItem(new Turnos(id,codpago,horario,name,hq,hw));
                 }
             }   else{
                
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al buscar ciudades!!",
+            JOptionPane.showMessageDialog(this, "Error al buscar turnos!!",
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -418,13 +435,11 @@ Menu obj=new Menu();
             if(btnNuevo.getText().compareTo("Registrar")==0){
                 try {
                     Departamento departamento = new Departamento();
-                    //FEmpresa fempresa = new FEmpresa();
-                   // empresa.setIdempresa(Integer.parseInt(txtCodigo.getText()));
                     departamento.setEmpresa((Empresa) jComboBoxEmpresa.getSelectedItem());
                     departamento.setTurnos((Turnos) jComboBoxTurno.getSelectedItem());
                     departamento.setNombredepartamento(txtNombre.getText());
                     
-                    if(empresa.empresa_insertar(empresa) ){
+                    if(departamento.departamento_insertar(departamento) ){
                        limpiarControles();
                         JOptionPane.showMessageDialog(this,"Registrado correctamente!!",
                             "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
@@ -448,7 +463,7 @@ Menu obj=new Menu();
             try {
                 if (departamento.departamento_eliminar(Integer.parseInt(txtCodigo.getText()))) {
                     JOptionPane.showMessageDialog(this,
-                        "Empresa eliminado correctamente!!",
+                        "Departamento eliminado correctamente!!",
                         "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
                    limpiarControles();
                 }
@@ -463,7 +478,7 @@ Menu obj=new Menu();
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         Departamento departamento = new Departamento();
         int confirmacion = JOptionPane.showConfirmDialog(this,
-            "¿Quiere modificar la empresa?", "Confirme",
+            "¿Quiere modificar el Departamento?", "Confirme",
             JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             try {
@@ -473,8 +488,8 @@ Menu obj=new Menu();
                     departamento.setNombredepartamento(txtNombre.getText());
                     
                                             
-                if(empresa.empresa_editar(empresa) ){
-                    JOptionPane.showMessageDialog(this,"Empresa modificado correctamente!!",
+                if(departamento.departamento_editar(departamento) ){
+                    JOptionPane.showMessageDialog(this,"Departamento modificado correctamente!!",
                         "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception ex) {
