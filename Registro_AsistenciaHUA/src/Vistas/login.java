@@ -79,7 +79,7 @@ public class login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(254, 483, 125, 25);
+        jButton2.setBounds(210, 480, 125, 25);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Salir");
@@ -89,7 +89,7 @@ public class login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(80, 480, 61, 25);
+        jButton1.setBounds(120, 480, 61, 25);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png"))); // NOI18N
         getContentPane().add(jLabel2);

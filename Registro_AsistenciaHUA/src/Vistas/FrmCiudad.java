@@ -14,9 +14,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import reportes.Reportes;
 
 
-public class FrmCiudad extends javax.swing.JFrame {
+public class FrmCiudad  extends javax.swing.JFrame { 
+ 
 
     /**
      * Creates new form Ciudad
@@ -426,14 +429,14 @@ Menu obj=new Menu();
 
     private void bntImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImprimirActionPerformed
 
-////        try {
-////            Reportes reporte = new Reportes();
-////            reporte.ReporteCiudades ();
-////        }catch (JRException ex) {
-////            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
-////        }catch (SQLException ex){
-////            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
-////        }
+        try {
+            Reportes reporte = new Reportes();
+            reporte.ReporteCiudad();
+        }catch (JRException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+        }catch (SQLException ex){
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+        }
     }//GEN-LAST:event_bntImprimirActionPerformed
   
     public void llenar(){

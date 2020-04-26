@@ -127,7 +127,7 @@ public class FrmCiclos extends javax.swing.JFrame {
 
         lblCodigosicoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCodigosicoa.setForeground(new java.awt.Color(0, 0, 102));
-        lblCodigosicoa.setText("tipo:");
+        lblCodigosicoa.setText("Estado:");
 
         txtTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

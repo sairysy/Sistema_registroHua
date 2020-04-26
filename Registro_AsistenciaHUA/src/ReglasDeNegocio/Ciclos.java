@@ -68,7 +68,10 @@ private int nociclos;
     public void setNociclos(int nociclos) {
         this.nociclos = nociclos;
     }
-
+@Override
+    public String toString() {
+        return getTipo();
+    }
     public static ArrayList<Ciclos> ciclos_buscartodos() throws Exception
     {
          //CREO LISTA QUE RECIBIRA LOS DATOS DEL RESULSET
