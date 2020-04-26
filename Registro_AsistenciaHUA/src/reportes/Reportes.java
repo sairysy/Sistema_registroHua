@@ -21,37 +21,16 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author USER
  */
 public class Reportes {
-//    public void ReporteUsuario () throws SQLException, JRException{
-//        Connection con = null;
-//        con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/andino","postgres","123");
-//        JasperReport reporte = null;
-//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\sairy\\Desktop\\Andino\\Sistema_registroHua\\Registro_AsistenciaHUA\\src\\reportes\\roles.jasper");
-//        JasperPrint print = JasperFillManager.fillReport(reporte , null, con);
-//        JasperViewer ver = new JasperViewer(print,false);
-//        ver.setTitle("Usuario");
-//        ver.setVisible(true);
-//    }
-     public void ReporteCiudad () throws SQLException, JRException{
+    public void ReporteCiudad () throws SQLException, JRException{
         Connection con = null;
         con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/andino","postgres","123");
         JasperReport reporte = null;
-        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\sairy\\Desktop\\Andino\\Sistema_registroHua\\Registro_AsistenciaHUA\\src\\reportes\\Ciudad.jasper");
+        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\sairy\\Desktop\\Andino\\Sistema_registroHua\\Registro_AsistenciaHUA\\src\\reportes\\Ciudad.jrxml");
         JasperPrint print = JasperFillManager.fillReport(reporte , null, con);
         JasperViewer ver = new JasperViewer(print,false);
         ver.setTitle("Ciudad");
         ver.setVisible(true);
-     }
-//       public void ReporteUsuarios () throws SQLException, JRException{
-//        Connection con = null;
-//        con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pis_proyect","tutorias","123");
-//        JasperReport reporte = null;
-//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\Franco-Pc\\Documents\\NetBeansProjects\\proyecto_Base_Datos\\proyecto_integrador\\src\\reportes\\Usuario.jasper");
-//        JasperPrint print = JasperFillManager.fillReport(reporte , null, con);
-//        JasperViewer ver = new JasperViewer(print,false);
-//        ver.setTitle("Usuario");
-//        ver.setVisible(true);
-//     }
-     
+    }
      
      
      

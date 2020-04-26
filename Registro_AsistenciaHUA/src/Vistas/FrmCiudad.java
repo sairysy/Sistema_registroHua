@@ -429,13 +429,12 @@ Menu obj=new Menu();
 
     private void bntImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImprimirActionPerformed
 
-        try {
-            Reportes reporte = new Reportes();
-            reporte.ReporteCiudad();
-        }catch (JRException ex) {
-            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
-        }catch (SQLException ex){
-            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+        try{
+            Reportes re=new Reportes();
+            re.ReporteCiudad();
+
+        }catch(SQLException ex ){} catch (JRException ex) {
+            Logger.getLogger(Ciudad.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bntImprimirActionPerformed
   
