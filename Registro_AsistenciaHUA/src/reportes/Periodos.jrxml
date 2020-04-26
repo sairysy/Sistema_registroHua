@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2d98a6a0-bda1-4412-8a40-9e04006c43e0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     periodos."codigo" AS periodos_codigo,
+     periodos."nombre" AS periodos_nombre,
+     periodos."fecha_inicio" AS periodos_fecha_inicio,
+     periodos."fecha_fin" AS periodos_fecha_fin,
+     periodos."tipo" AS periodos_tipo,
+     periodos."observaciones" AS periodos_observaciones,
+     periodos."codigo_sicoa" AS periodos_codigo_sicoa,
+     periodos."estado" AS periodos_estado
+FROM
+     "actividades"."periodos" periodos]]>
+	</queryString>
+	<field name="periodos_codigo" class="java.lang.Integer"/>
+	<field name="periodos_nombre" class="java.lang.String"/>
+	<field name="periodos_fecha_inicio" class="java.sql.Date"/>
+	<field name="periodos_fecha_fin" class="java.sql.Date"/>
+	<field name="periodos_tipo" class="java.lang.Integer"/>
+	<field name="periodos_observaciones" class="java.lang.String"/>
+	<field name="periodos_codigo_sicoa" class="java.lang.Integer"/>
+	<field name="periodos_estado" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="221" y="-10" width="137" height="89" uuid="2a0d492d-9158-4177-ac7d-8f8520573e83"/>
+				<imageExpression><![CDATA["C:\\Users\\USER\\Documents\\NetBeansProjects\\ProyectoQuinto\\src\\imagenes\\sellounach.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="77" splitType="Stretch">
+			<line>
+				<reportElement x="-5" y="8" width="560" height="1" uuid="89da496c-97ca-46f8-8a3b-ffeb0b4d9413"/>
+			</line>
+			<line>
+				<reportElement x="-6" y="69" width="560" height="1" uuid="b5a34768-1bd3-46ea-b13a-d733adfdc532"/>
+			</line>
+			<staticText>
+				<reportElement x="95" y="13" width="388" height="25" uuid="9bddb0ca-244b-43eb-8423-6e3ad751af1c"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDAD NACIONAL DE CHIMBORAZO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="44" width="347" height="25" uuid="a357128d-db51-40ed-a441-7c32f6dc976f"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PERIODOS ACADEMICOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-6" y="0" width="561" height="27" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="5ef8b239-8952-47c6-80c7-0b20ad883622"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-5" y="7" width="45" height="20" uuid="ea2db605-4f8e-4f29-a8e7-a3a022d65d5e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="7" width="50" height="20" uuid="c7a20c19-cd97-4f61-ad49-d9bada44203a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="7" width="100" height="20" uuid="787471fc-5dd5-49a3-8351-cadd336d1b6e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="7" width="100" height="20" uuid="069d5a92-c3f8-4fe9-98e9-e083b62724cd"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="7" width="100" height="20" uuid="462edaec-4fbd-4860-8438-2ec01d7f5513"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="7" width="100" height="20" uuid="f8cac30f-384d-49dc-a6b4-e1ca2c779bef"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="6" width="100" height="20" uuid="1399b936-d7cb-467d-95b5-ffef3fd7ec1f"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo sicoa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="508" y="6" width="34" height="20" uuid="5fd5b19b-555f-4a0c-877d-ef2ece9fcaff"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="-5" y="9" width="100" height="20" uuid="54689746-4feb-440e-a4d0-faacef7baab3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodos_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="9" width="158" height="20" uuid="f917c5ad-0410-4d03-87ce-449c2c8c5235"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodos_nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="158" y="8" width="100" height="20" uuid="c23d7de9-6642-4dfe-89af-0d717d09a649"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodos_fecha_inicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="223" y="6" width="100" height="20" uuid="0e3c1989-ad55-47c3-854c-2dafba64d864"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodos_fecha_fin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="6" width="100" height="20" uuid="9e1566c6-14d7-43f9-8bb0-0ebfd5ca0038"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodos_tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="306" y="6" width="144" height="20" uuid="df9f7532-40f7-4ccb-83ca-391a3e120ec2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodos_observaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="6" width="100" height="20" uuid="f5d0017e-601a-40a8-8b75-e5dbdb658d6a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{periodos_codigo_sicoa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="511" y="6" width="100" height="20" uuid="acaa540a-c954-4f91-ae68-fd5d2a6207f8"/>
+				<textFieldExpression><![CDATA[$F{periodos_estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="34" width="100" height="20" uuid="4e6b7b3a-8101-4ea7-b643-2acba1106092"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="455" y="34" width="100" height="20" uuid="8f040148-e846-406b-a777-83d0958f5e7d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
