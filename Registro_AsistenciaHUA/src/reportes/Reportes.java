@@ -21,24 +21,25 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author USER
  */
 public class Reportes {
-    public void ReporteRol () throws SQLException, JRException{
+    public void ReporteCiudad () throws SQLException, JRException{
         Connection con = null;
-        con = DriverManager.getConnection("jdbc:postgresql://localhost:5433/proyecto_db","tutorias","123");
+        con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/andino","postgres","123");
         JasperReport reporte = null;
-        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\USER\\Documents\\NetBeansProjects\\ProyectoQuinto\\src\\reportes\\Roles.jasper");
+        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\sairy\\Desktop\\Andino\\Sistema_registroHua - copia\\Registro_AsistenciaHUA\\src\\reportes\\Ciudad.jasper");
         JasperPrint print = JasperFillManager.fillReport(reporte , null, con);
         JasperViewer ver = new JasperViewer(print,false);
-        ver.setTitle("Rol");
+        ver.setTitle("Ciudad");
         ver.setVisible(true);
-    }
-    public void ReportePeriodo () throws SQLException, JRException{
-        Connection con = null;
-        con = DriverManager.getConnection("jdbc:postgresql://localhost:5433/proyecto_db","tutorias","123");
-        JasperReport reporte = null;
-        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\USER\\Documents\\NetBeansProjects\\ProyectoQuinto\\src\\reportes\\Periodos.jasper");
-        JasperPrint print = JasperFillManager.fillReport(reporte , null, con);
-        JasperViewer ver = new JasperViewer(print,false);
-        ver.setTitle("Rol");
-        ver.setVisible(true);
-    }
+  }
+//    public void ReportePeriodo () throws SQLException, JRException{
+//        Connection con = null;
+//        con = DriverManager.getConnection("jdbc:postgresql://localhost:5433/proyecto_db","tutorias","123");
+//        JasperReport reporte = null;
+//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\USER\\Documents\\NetBeansProjects\\ProyectoQuinto\\src\\reportes\\Periodos.jasper");
+//        JasperPrint print = JasperFillManager.fillReport(reporte , null, con);
+//        JasperViewer ver = new JasperViewer(print,false);
+//        ver.setTitle("Rol");
+//        ver.setVisible(true);
+//    }
 }
+    
