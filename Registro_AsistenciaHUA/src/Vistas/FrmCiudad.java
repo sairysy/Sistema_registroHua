@@ -5,13 +5,16 @@
  */
 package Vistas;
 
-
 import AccesoADatos.Conexion;
 import ReglasDeNegocio.Ciudad;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -20,11 +23,14 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import reportes.Reportes;
 
-
-public class FrmCiudad  extends javax.swing.JFrame { 
-    Conexion anex;
+public class FrmCiudad extends javax.swing.JFrame {
 
     /**
      * Creates new form Ciudad
@@ -32,14 +38,18 @@ public class FrmCiudad  extends javax.swing.JFrame {
     public FrmCiudad() {
         initComponents();
         this.setLocationRelativeTo(null);
-    llenar();
+        llenar();
     }
-  private void limpiarContCiudades() {
+    Connection con;
+    PreparedStatement pat;
+
+    private void limpiarContCiudades() {
         txtCodigo.setText("");
-        
+
         txtNombre.setText("");
-        
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -65,6 +75,7 @@ public class FrmCiudad  extends javax.swing.JFrame {
         bntImprimir = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaListarCiudad = new javax.swing.JTable();
+        btnGenerarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -195,6 +206,13 @@ public class FrmCiudad  extends javax.swing.JFrame {
         TablaListarCiudad.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane3.setViewportView(TablaListarCiudad);
 
+        btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,52 +223,53 @@ public class FrmCiudad  extends javax.swing.JFrame {
                         .addGap(331, 331, 331)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
-                                        .addComponent(jSeparator1)
-                                        .addGap(144, 144, 144)
-                                        .addComponent(bntImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addContainerGap()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblCodigofacultad1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lblCodigofacultad1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(45, 45, 45)
-                                                        .addComponent(btnVolver)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(btnSalir))
-                                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                    .addGap(77, 77, 77)
-                                                    .addComponent(jLabel6))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                    .addContainerGap()
-                                                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(btnModificar)
-                                                    .addGap(26, 26, 26)
-                                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                                .addGap(45, 45, 45)
+                                                .addComponent(btnVolver)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnSalir))
+                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGap(77, 77, 77)
+                                            .addComponent(jLabel6))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addContainerGap()
+                                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnModificar)
+                                            .addGap(26, 26, 26)
+                                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addComponent(lblBuscarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtBuscarcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(25, 25, 25)
+                                        .addComponent(jSeparator1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addComponent(lblBuscarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtBuscarcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGenerarReporte)
+                                .addGap(37, 37, 37)
+                                .addComponent(bntImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -268,8 +287,10 @@ public class FrmCiudad  extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bntImprimir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bntImprimir)
+                            .addComponent(btnGenerarReporte))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
@@ -319,11 +340,11 @@ public class FrmCiudad  extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-System.exit(0);        // TODO add your handling code here:
+        System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-Menu obj=new Menu();
+        Menu obj = new Menu();
         obj.setVisible(true);
         dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -334,22 +355,21 @@ Menu obj=new Menu();
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        
+
         Ciudad ciudad = new Ciudad();
-                
+
         try {
             limpiarContCiudades();
             ciudad = ciudad.ciudad_buscarporid(
-                Integer.parseInt(txtBuscarcodigo.getText()));
+                    Integer.parseInt(txtBuscarcodigo.getText()));
             if (ciudad != null) {
                 txtCodigo.setText(Integer.toString(ciudad.getIdciudad()));
                 txtNombre.setText(ciudad.getNombreciudad());
-                
 
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al buscar  ciudad!!",
-                "Error", JOptionPane.ERROR_MESSAGE);
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -362,49 +382,49 @@ Menu obj=new Menu();
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        if (btnNuevo.getText().compareTo("Nuevo")==0) {
-             limpiarContCiudades();
+        if (btnNuevo.getText().compareTo("Nuevo") == 0) {
+            limpiarContCiudades();
             btnNuevo.setText("Registrar");
-        }else{
-            if(btnNuevo.getText().compareTo("Registrar")==0){
+        } else {
+            if (btnNuevo.getText().compareTo("Registrar") == 0) {
                 try {
                     Ciudad ciudad = new Ciudad();
                     //FCiudad fciudad = new FCiudad();
-                   // ciudad.setIdciudad(Integer.parseInt(txtCodigo.getText()));
+                    // ciudad.setIdciudad(Integer.parseInt(txtCodigo.getText()));
                     ciudad.setNombreciudad(txtNombre.getText());
-                   
-                    if(ciudad.ciudad_insertar(ciudad) ){
-                       limpiarContCiudades();
-                        JOptionPane.showMessageDialog(this,"Registrado correctamente!!",
-                            "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
+
+                    if (ciudad.ciudad_insertar(ciudad)) {
+                        limpiarContCiudades();
+                        JOptionPane.showMessageDialog(this, "Registrado correctamente!!",
+                                "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
                         btnNuevo.setText("Nuevo");
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this,"Error desconocido: "+ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error desconocido: " + ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
-       llenar();
+        llenar();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        btnNuevo.setEnabled(false);
+
         Ciudad ciudad = new Ciudad();
         int confirmacion = JOptionPane.showConfirmDialog(this,
-            "¿Quiere eliminar el ciudad?", "Confirme",
-            JOptionPane.YES_NO_OPTION);
+                "¿Quiere eliminar el ciudad?", "Confirme",
+                JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             try {
                 if (ciudad.ciudad_eliminar(Integer.parseInt(txtCodigo.getText()))) {
                     JOptionPane.showMessageDialog(this,
-                        "Ciudad eliminado correctamente!!",
-                        "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
-                   limpiarContCiudades();
+                            "Ciudad eliminado correctamente!!",
+                            "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
+                    limpiarContCiudades();
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al eliminar el ciudad!!",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         llenar();
@@ -413,20 +433,20 @@ Menu obj=new Menu();
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         Ciudad ciudad = new Ciudad();
         int confirmacion = JOptionPane.showConfirmDialog(this,
-            "¿Quiere modificar el ciudad?", "Confirme",
-            JOptionPane.YES_NO_OPTION);
+                "¿Quiere modificar el ciudad?", "Confirme",
+                JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             try {
-                    ciudad.setIdciudad(Integer.parseInt(txtCodigo.getText()));                    
-                    ciudad.setNombreciudad(txtNombre.getText());
-                    
-                if(ciudad.ciudad_editar(ciudad) ){
-                    JOptionPane.showMessageDialog(this,"Ciudad modificado correctamente!!",
-                        "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
+                ciudad.setIdciudad(Integer.parseInt(txtCodigo.getText()));
+                ciudad.setNombreciudad(txtNombre.getText());
+
+                if (ciudad.ciudad_editar(ciudad)) {
+                    JOptionPane.showMessageDialog(this, "Ciudad modificado correctamente!!",
+                            "Transacción correcta", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this,"Error desconocido: "+ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error desconocido: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         llenar();
@@ -434,26 +454,74 @@ Menu obj=new Menu();
 
     private void bntImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImprimirActionPerformed
 
-       
+  //      try {
+//            Class.forName("org.postgresql.Driver");
+//            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/andino","postgres","123");
+//            JasperReport reporte =null;
+//            String path ="C:\\Users\\sairy\\Desktop\\Andino\\Sistema_registroHua1\\Registro_AsistenciaHUA\\src\\Vistas\\ciudad.jrxml";
+//            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+//            JasperPrint jprint = JasperFillManager.fillReport(reporte,null ,con);
+//            JasperViewer view = new JasperViewer(jprint, false);
+//            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//            view.setVisible(true);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(FrmCiudad.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrmCiudad.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (JRException ex) {
+//            Logger.getLogger(FrmCiudad.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+           
+//        try {
+//            Connection con = null;
+//            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/andino","postgres","123");
+//            JasperReport reporte = null;
+//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\sairy\\Desktop\\Andino\\Sistema_registroHua1\\Registro_AsistenciaHUA\\src\\Vistas\\reporte.jrxm");
+//        JasperPrint print = JasperFillManager.fillReport(reporte , null, con);
+//        JasperViewer ver = new JasperViewer(print,false);
+//        ver.setTitle("ciudad");
+//        ver.setVisible(true); 
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrmCiudad.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (JRException ex) {
+//            Logger.getLogger(FrmCiudad.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
     }//GEN-LAST:event_bntImprimirActionPerformed
-  
-    public void llenar(){
-DefaultTableModel modelo = (DefaultTableModel) TablaListarCiudad.getModel();
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+
+       try {
+            Reportes reporte = new Reportes();
+            reporte.Reporteciudad();
+        }catch (JRException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+        }catch (SQLException ex){
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+        }
+         
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
+
+    public void llenar() {
+        DefaultTableModel modelo = (DefaultTableModel) TablaListarCiudad.getModel();
         ArrayList<Ciudad> lista = new ArrayList<>();
         try {
             Ciudad fusuarios = new Ciudad();
             lista = fusuarios.ciudad_buscartodos();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-         int filas=TablaListarCiudad.getRowCount()-1;
-            for(int i=filas; i>=0; i--){
-                modelo.removeRow(modelo.getRowCount()-1);
-            } 
-        for(Ciudad p : lista){
-            modelo.addRow(new Object[]{ p.getIdciudad(),p.getNombreciudad()});
-        }}
+        int filas = TablaListarCiudad.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(modelo.getRowCount() - 1);
+        }
+        for (Ciudad p : lista) {
+            modelo.addRow(new Object[]{p.getIdciudad(), p.getNombreciudad()});
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -480,7 +548,7 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarCiudad.getModel();
             java.util.logging.Logger.getLogger(FrmCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-    
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -488,14 +556,14 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarCiudad.getModel();
             }
         });
     }
-    
-    
-   Ciudad ciudad ;
+
+    Ciudad ciudad;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaListarCiudad;
     private javax.swing.JButton bntImprimir;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import reportes.Reportes;
 //import javax.swing.table.DefaultTableModel;
 //import net.sf.jasperreports.engine.JRException;
 //import reportes.Reportes;
@@ -298,8 +300,8 @@ public class FrmUsuario extends javax.swing.JFrame {
                             .addComponent(btnEliminar)
                             .addComponent(btnModificar))
                         .addGap(85, 85, 85)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnVolver)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVolver, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnSalir))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -418,14 +420,14 @@ Menu obj=new Menu();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void bntImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImprimirActionPerformed
-//
+
 //        try {
 //            Reportes reporte = new Reportes();
-//            reporte.ReporteUsuario ();
-//        }catch (JRException ex) {
-//            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
-//        }catch (SQLException ex){
-//            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+//            reporte.Reporteusuario();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (JRException ex) {
+//            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
 //        }
     }//GEN-LAST:event_bntImprimirActionPerformed
 
