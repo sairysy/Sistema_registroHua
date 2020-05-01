@@ -5,6 +5,10 @@
  */
 package Vistas;
 
+
+import AccesoADatos.Conexion;
+import java.sql.Connection;
+import java.util.Locale;
 import ReglasDeNegocio.Horario;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -21,6 +25,8 @@ import java.util.Date;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel; 
+import net.sf.jasperreports.engine.JRException;
+import reportes.Reportes;
 //////import net.sf.jasperreports.engine.JRException;
 //////import reportes.Reportes;
 
@@ -66,7 +72,6 @@ public class FrmHorario extends javax.swing.JFrame {
         btnNuevo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        bntImprimir = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaListarHorario = new javax.swing.JTable();
         txtCodigobuscar = new javax.swing.JTextField();
@@ -101,10 +106,10 @@ public class FrmHorario extends javax.swing.JFrame {
         SpinnerDateModel fm =
         new SpinnerDateModel(date,null,null,Calendar.HOUR_OF_DAY);
         spinnerfinal = new javax.swing.JSpinner(fm);
+        btnGenerarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1024, 880));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSalir.setText("Salir");
@@ -113,6 +118,7 @@ public class FrmHorario extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 772, -1, -1));
 
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnVolver.setText("Volver");
@@ -121,10 +127,13 @@ public class FrmHorario extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 772, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(803, 803, 216, 0));
 
         lblBuscarCodigo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblBuscarCodigo.setForeground(new java.awt.Color(0, 0, 102));
         lblBuscarCodigo.setText("Codigo:");
+        getContentPane().add(lblBuscarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 59, 60, -1));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(0, 0, 102));
@@ -134,20 +143,24 @@ public class FrmHorario extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 55, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 102));
         jLabel6.setText("Informacion");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 94, -1, -1));
 
         lblCodigo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(0, 0, 102));
         lblCodigo.setText("Codigo:");
+        getContentPane().add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 141, 91, -1));
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 197, 189, -1));
 
         btnNuevo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnNuevo.setForeground(new java.awt.Color(0, 0, 102));
@@ -157,6 +170,7 @@ public class FrmHorario extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 519, 89, -1));
 
         btnEliminar.setBackground(new java.awt.Color(204, 204, 204));
         btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -167,6 +181,7 @@ public class FrmHorario extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 519, 89, -1));
 
         btnModificar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(0, 0, 102));
@@ -176,15 +191,7 @@ public class FrmHorario extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-
-        bntImprimir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bntImprimir.setForeground(new java.awt.Color(0, 0, 102));
-        bntImprimir.setText("Imprimir");
-        bntImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntImprimirActionPerformed(evt);
-            }
-        });
+        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 519, -1, -1));
 
         TablaListarHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -205,11 +212,14 @@ public class FrmHorario extends javax.swing.JFrame {
         TablaListarHorario.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane3.setViewportView(TablaListarHorario);
 
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 575, 917, 179));
+
         txtCodigobuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigobuscarActionPerformed(evt);
             }
         });
+        getContentPane().add(txtCodigobuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 55, 55, -1));
 
         txtCodigo.setEnabled(false);
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -217,6 +227,7 @@ public class FrmHorario extends javax.swing.JFrame {
                 txtCodigoActionPerformed(evt);
             }
         });
+        getContentPane().add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 137, 58, -1));
 
         jRadioSalidat.setText("Activar");
         jRadioSalidat.addActionListener(new java.awt.event.ActionListener() {
@@ -224,10 +235,12 @@ public class FrmHorario extends javax.swing.JFrame {
                 jRadioSalidatActionPerformed(evt);
             }
         });
+        getContentPane().add(jRadioSalidat, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 211, -1, -1));
 
         lblCodigo1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCodigo1.setForeground(new java.awt.Color(0, 0, 102));
         lblCodigo1.setText("Nombre:");
+        getContentPane().add(lblCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 201, 91, -1));
 
         lblNoH4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH4.setForeground(new java.awt.Color(0, 0, 102));
@@ -268,17 +281,22 @@ public class FrmHorario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jPanelHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 407, -1, -1));
+
         lblNoH6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH6.setForeground(new java.awt.Color(0, 0, 102));
         lblNoH6.setText("Inicio:");
+        getContentPane().add(lblNoH6, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 281, 92, 30));
 
         lblNoH7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH7.setForeground(new java.awt.Color(0, 0, 102));
         lblNoH7.setText("HORA-FECHA");
+        getContentPane().add(lblNoH7, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 242, 110, 26));
 
         lblNoH8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH8.setForeground(new java.awt.Color(0, 0, 102));
         lblNoH8.setText("Fin:");
+        getContentPane().add(lblNoH8, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 327, 92, 30));
 
         lblNoH11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH11.setForeground(new java.awt.Color(0, 0, 102));
@@ -305,6 +323,8 @@ public class FrmHorario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jPanelRetardo, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 149, -1, -1));
+
         lblNoH13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH13.setForeground(new java.awt.Color(0, 0, 102));
         lblNoH13.setText("contar salida temprano:");
@@ -330,18 +350,23 @@ public class FrmHorario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jPanelSalidaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 239, -1, -1));
+
         jRadioretardo.setText("Activar");
         jRadioretardo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioretardoActionPerformed(evt);
             }
         });
+        getContentPane().add(jRadioretardo, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 121, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoAzul.png"))); // NOI18N
         jLabel4.setText("jLabel1");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1018, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoAzul.png"))); // NOI18N
         jLabel5.setText("jLabel1");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 810, 1018, 30));
 
         jRadio_Hora.setText("Activar");
         jRadio_Hora.addActionListener(new java.awt.event.ActionListener() {
@@ -349,10 +374,12 @@ public class FrmHorario extends javax.swing.JFrame {
                 jRadio_HoraActionPerformed(evt);
             }
         });
+        getContentPane().add(jRadio_Hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 364, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 102));
         jLabel7.setText("Horario");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 47, 103, -1));
 
         //JSpinner.DateEditor de = new JSpinner.DateEditor(jspinerinicio, "HH:mm:ss");
         //jspinerinicio.setEditor(de);
@@ -361,6 +388,7 @@ public class FrmHorario extends javax.swing.JFrame {
                 ValueSpiner(evt);
             }
         });
+        getContentPane().add(jspinerinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 285, 141, -1));
 
         txtInicio.setEditable(false);
         txtInicio.setEnabled(false);
@@ -370,178 +398,25 @@ public class FrmHorario extends javax.swing.JFrame {
                 txtInicioActionPerformed(evt);
             }
         });
+        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 285, 189, -1));
 
         txtFin.setEditable(false);
+        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 331, 189, -1));
 
         spinnerfinal.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 valueSpinner2(evt);
             }
         });
+        getContentPane().add(spinnerfinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 331, 141, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(803, 803, 803)
-                .addComponent(jSeparator1))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1018, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1018, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnVolver)
-                        .addGap(64, 64, 64)
-                        .addComponent(btnSalir)
-                        .addGap(476, 476, 476))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnModificar)
-                        .addGap(61, 61, 61)
-                        .addComponent(bntImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(250, 250, 250))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 917, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadio_Hora)
-                            .addComponent(jPanelHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(lblBuscarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCodigobuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnBuscar)
-                        .addGap(196, 196, 196)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(jLabel6)))
-                .addContainerGap(58, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNoH8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFin))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNoH6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtInicio)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jspinerinicio, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                            .addComponent(spinnerfinal))
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(lblCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNoH7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(165, 165, 165)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioSalidat)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioretardo)
-                            .addComponent(jPanelSalidaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelRetardo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBuscarCodigo)
-                    .addComponent(txtCodigobuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar)
-                    .addComponent(jLabel7))
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCodigo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCodigo1))
-                        .addGap(23, 23, 23)
-                        .addComponent(lblNoH7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNoH6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jspinerinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(5, 5, 5)
-                        .addComponent(jRadioretardo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelRetardo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioSalidat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelSalidaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNoH8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spinnerfinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jRadio_Hora)
-                .addGap(18, 18, 18)
-                .addComponent(jPanelHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bntImprimir)
-                    .addComponent(btnModificar)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnEliminar))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnVolver))
-                .addGap(8, 8, 8)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 518, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -670,18 +545,6 @@ Menu obj=new Menu();
         llenar();
     }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void bntImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImprimirActionPerformed
-
-//        try {
-//            Reportes reporte = new Reportes();
-//            reporte.ReporteHorario ();
-//        }catch (JRException ex) {
-//            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
-//        }catch (SQLException ex){
-//            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
-//        }
-    }//GEN-LAST:event_bntImprimirActionPerformed
-
     private void txtCodigobuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigobuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigobuscarActionPerformed
@@ -728,6 +591,19 @@ Menu obj=new Menu();
         //spinner =(String) jspinerinicio.getValue();
         txtInicio.setText(spinner) ;
     }//GEN-LAST:event_ValueSpiner
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+
+        try {
+            Reportes reporte = new Reportes();
+            reporte.ReporteHorario();
+        }catch (JRException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+        }catch (SQLException ex){
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null , ex);
+        }
+
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
  public void llenar(){
 DefaultTableModel modelo = (DefaultTableModel) TablaListarHorario.getModel();
         ArrayList<Horario> lista = new ArrayList<>();
@@ -846,9 +722,9 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarHorario.getModel();
    Horario horario ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaListarHorario;
-    private javax.swing.JButton bntImprimir;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;

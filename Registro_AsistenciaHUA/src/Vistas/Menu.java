@@ -25,9 +25,7 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        jMenu2 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         btnHorario = new javax.swing.JButton();
         btnEmpresa = new javax.swing.JButton();
@@ -40,30 +38,23 @@ public class Menu extends javax.swing.JFrame {
         btnDetalleCiclo = new javax.swing.JButton();
         btnciclo = new javax.swing.JButton();
         btnPago = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
+        jMenu2.setText("jMenu2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 153, 153));
-        setUndecorated(true);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo1.png"))); // NOI18N
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoAzul.png"))); // NOI18N
-
-        jButton4.setBackground(new java.awt.Color(153, 0, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton4.setText("Salir");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        setBackground(new java.awt.Color(0, 0, 0));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnHorario.setBackground(new java.awt.Color(0, 51, 153));
         btnHorario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnHorario.setForeground(new java.awt.Color(255, 255, 255));
         btnHorario.setText("Horario");
         btnHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +62,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnEmpresa.setBackground(new java.awt.Color(0, 51, 153));
         btnEmpresa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnEmpresa.setForeground(new java.awt.Color(255, 255, 255));
         btnEmpresa.setText("Empresa");
         btnEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +72,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnUsuario.setBackground(new java.awt.Color(0, 51, 153));
         btnUsuario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnUsuario.setText("Usuario");
         btnUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +82,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnCiudad.setBackground(new java.awt.Color(0, 51, 153));
         btnCiudad.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCiudad.setForeground(new java.awt.Color(255, 255, 255));
         btnCiudad.setText("Ciudad");
         btnCiudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,7 +92,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnDepartamento.setBackground(new java.awt.Color(0, 51, 153));
         btnDepartamento.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnDepartamento.setForeground(new java.awt.Color(255, 255, 255));
         btnDepartamento.setText("Departamento");
         btnDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +102,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnTurno.setBackground(new java.awt.Color(0, 51, 153));
         btnTurno.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnTurno.setForeground(new java.awt.Color(255, 255, 255));
         btnTurno.setText("Turnos");
         btnTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,7 +112,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnReceso.setBackground(new java.awt.Color(0, 51, 153));
         btnReceso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnReceso.setForeground(new java.awt.Color(255, 255, 255));
         btnReceso.setText("Receso");
         btnReceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +122,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnDetalleH.setBackground(new java.awt.Color(0, 51, 153));
         btnDetalleH.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnDetalleH.setForeground(new java.awt.Color(255, 255, 255));
         btnDetalleH.setText("Detalle horario");
         btnDetalleH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +132,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnDetalleCiclo.setBackground(new java.awt.Color(0, 51, 153));
         btnDetalleCiclo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnDetalleCiclo.setForeground(new java.awt.Color(255, 255, 255));
         btnDetalleCiclo.setText("Detalle ciclo");
         btnDetalleCiclo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +142,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnciclo.setBackground(new java.awt.Color(0, 51, 153));
         btnciclo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnciclo.setForeground(new java.awt.Color(255, 255, 255));
         btnciclo.setText("Ciclo");
         btnciclo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +152,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnPago.setBackground(new java.awt.Color(0, 51, 153));
         btnPago.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnPago.setForeground(new java.awt.Color(255, 255, 255));
         btnPago.setText("Pago");
         btnPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,144 +162,93 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hua.png"))); // NOI18N
+
+        jButton4.setBackground(new java.awt.Color(0, 0, 51));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Salir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel4.setText("Menu");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnPago, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDetalleH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDetalleCiclo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnciclo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReceso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHorario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCiudad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCiudad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnHorario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReceso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDetalleH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnciclo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDetalleCiclo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnTurno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(199, 199, 199)
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReceso, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDetalleH, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnciclo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDetalleCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPago, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoAzul.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnEmpresa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel1)
-                        .addGap(0, 99, Short.MAX_VALUE))))
+                        .addComponent(btnCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTurno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHorario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReceso)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnciclo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDepartamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDetalleCiclo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDetalleH)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPago))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton4)))
+                .addGap(25, 25, 25))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
-FrmEmpresa obj=new  FrmEmpresa();
-       obj.setVisible(true);
-       dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEmpresaActionPerformed
-
-    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
-    FrmUsuario obj=new  FrmUsuario();
-        obj.setVisible(true);
-        dispose();
-                                             
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUsuarioActionPerformed
-
-    private void btnCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadActionPerformed
-       FrmCiudad obj=new FrmCiudad();
-       obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnCiudadActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void btncicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncicloActionPerformed
-        // TODO add your handling code here:
-         FrmCiclos obj=new  FrmCiclos();
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btncicloActionPerformed
-
-    private void btnHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHorarioActionPerformed
-        // TODO add your handling code here:
-         FrmHorario obj=new  FrmHorario();
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnHorarioActionPerformed
-
-    private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
-        // TODO add your handling code here:
-         FrmCodigopago obj=new  FrmCodigopago();
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnPagoActionPerformed
 
     private void btnTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurnoActionPerformed
         // TODO add your handling code here:
@@ -304,18 +264,39 @@ FrmEmpresa obj=new  FrmEmpresa();
         dispose();
     }//GEN-LAST:event_btnDepartamentoActionPerformed
 
-    private void btnRecesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecesoActionPerformed
-        // TODO add your handling code here:
-        FrmDescansos obj=new  FrmDescansos();
+    private void btnCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadActionPerformed
+        FrmCiudad obj=new FrmCiudad();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnRecesoActionPerformed
+    }//GEN-LAST:event_btnCiudadActionPerformed
 
-    private void btnDetalleHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleHActionPerformed
-       FrmHorariodescanso obj=new  FrmHorariodescanso();
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
+        FrmUsuario obj=new  FrmUsuario();
+        obj.setVisible(true);
+        dispose();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUsuarioActionPerformed
+
+    private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
+        FrmEmpresa obj=new  FrmEmpresa();
         obj.setVisible(true);
         dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDetalleHActionPerformed
+    }//GEN-LAST:event_btnEmpresaActionPerformed
+
+    private void btnHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHorarioActionPerformed
+        // TODO add your handling code here:
+        FrmHorario obj=new  FrmHorario();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnHorarioActionPerformed
+
+    private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
+        // TODO add your handling code here:
+        FrmCodigopago obj=new  FrmCodigopago();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnPagoActionPerformed
 
     private void btnDetalleCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleCicloActionPerformed
         // TODO add your handling code here:
@@ -323,6 +304,30 @@ FrmEmpresa obj=new  FrmEmpresa();
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnDetalleCicloActionPerformed
+
+    private void btncicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncicloActionPerformed
+        // TODO add your handling code here:
+        FrmCiclos obj=new  FrmCiclos();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btncicloActionPerformed
+
+    private void btnDetalleHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleHActionPerformed
+        FrmHorariodescanso obj=new  FrmHorariodescanso();
+        obj.setVisible(true);
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDetalleHActionPerformed
+
+    private void btnRecesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecesoActionPerformed
+        // TODO add your handling code here:
+        FrmDescansos obj=new  FrmDescansos();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRecesoActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,10 +380,10 @@ FrmEmpresa obj=new  FrmEmpresa();
     private javax.swing.JButton btnUsuario;
     private javax.swing.JButton btnciclo;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
