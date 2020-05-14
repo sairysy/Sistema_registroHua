@@ -15,6 +15,7 @@ import ReglasDeNegocio.Turnos;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,6 +48,7 @@ public class FrmTurnos extends javax.swing.JFrame {
         jComboBoxPago.setSelectedIndex(0);
         jComboBoxHorario.setSelectedIndex(0);
         txtNombre.setText("");
+        txtFecha.setDate(null);
         txtInicio.setText("");
         txtFin.setText("");
         
@@ -81,16 +83,11 @@ public class FrmTurnos extends javax.swing.JFrame {
         lblNoH6 = new javax.swing.JLabel();
         lblNoH7 = new javax.swing.JLabel();
         lblNoH8 = new javax.swing.JLabel();
-        txtInicio = new javax.swing.JTextField();
-        txtFin = new javax.swing.JTextField();
-        Date date = new Date();
-        SpinnerDateModel sm =
-        new SpinnerDateModel(date, null, null, Calendar.HOUR);
-        jspinerinicio = new javax.swing.JSpinner(sm);
-        SpinnerDateModel fm =
-        new SpinnerDateModel(date,null,null,Calendar.HOUR_OF_DAY);
-        spinnerfinal = new javax.swing.JSpinner(fm);
         btnGenerarReporte = new javax.swing.JButton();
+        txtFin = new javax.swing.JFormattedTextField();
+        lblNoH9 = new javax.swing.JLabel();
+        txtInicio = new javax.swing.JFormattedTextField();
+        txtFecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -257,47 +254,18 @@ public class FrmTurnos extends javax.swing.JFrame {
 
         lblNoH6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH6.setForeground(new java.awt.Color(0, 0, 102));
-        lblNoH6.setText("Inicio:");
-        getContentPane().add(lblNoH6, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 268, 52, 30));
+        lblNoH6.setText("Fecha:");
+        getContentPane().add(lblNoH6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 52, 30));
 
         lblNoH7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH7.setForeground(new java.awt.Color(0, 0, 102));
-        lblNoH7.setText("HORA-FECHA");
-        getContentPane().add(lblNoH7, new org.netbeans.lib.awtextra.AbsoluteConstraints(678, 224, 110, 26));
+        lblNoH7.setText("HORA(HH:MM:SS)");
+        getContentPane().add(lblNoH7, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 110, 26));
 
         lblNoH8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH8.setForeground(new java.awt.Color(0, 0, 102));
         lblNoH8.setText("Fin:");
-        getContentPane().add(lblNoH8, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 316, 36, 30));
-
-        txtInicio.setEditable(false);
-        txtInicio.setEnabled(false);
-        txtInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInicioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 272, 185, -1));
-
-        txtFin.setEditable(false);
-        txtFin.setEnabled(false);
-        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 320, 185, -1));
-
-        //JSpinner.DateEditor de = new JSpinner.DateEditor(jspinerinicio, "HH:mm:ss");
-        //jspinerinicio.setEditor(de);
-        jspinerinicio.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jspinerinicioValueSpiner(evt);
-            }
-        });
-        getContentPane().add(jspinerinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 272, 173, -1));
-
-        spinnerfinal.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spinnerfinalvalueSpinner2(evt);
-            }
-        });
-        getContentPane().add(spinnerfinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(774, 320, 173, -1));
+        getContentPane().add(lblNoH8, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 36, 30));
 
         btnGenerarReporte.setText("Generar Reporte");
         btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +274,26 @@ public class FrmTurnos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(591, 428, -1, -1));
+
+        try {
+            txtFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 360, 90, -1));
+
+        lblNoH9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNoH9.setForeground(new java.awt.Color(0, 0, 102));
+        lblNoH9.setText("Inicio:");
+        getContentPane().add(lblNoH9, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 52, 30));
+
+        try {
+            txtInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 320, 90, -1));
+        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 150, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -372,11 +360,13 @@ Menu obj=new Menu();
         Turnos turnos = new Turnos();
         try {
             limpiarControles();
+           
             turnos = turnos.turnos_buscarporid(
                 Integer.parseInt(txtCodigobuscar.getText()));
             if (turnos != null) {
                 txtCodigo.setText(Integer.toString(turnos.getIdturno()));
                 txtNombre.setText(turnos.getNombreturno());
+                txtFecha.setDate(turnos.getFecha());
                 txtInicio.setText(turnos.getHora_entrada());
                 txtFin.setText(turnos.getHora_salida());
                
@@ -395,6 +385,7 @@ Menu obj=new Menu();
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (btnNuevo.getText().compareTo("Nuevo")==0) {
              limpiarControles();
+              txtCodigobuscar.setText("");
             btnNuevo.setText("Registrar");
         }else{
             if(btnNuevo.getText().compareTo("Registrar")==0){
@@ -405,6 +396,15 @@ Menu obj=new Menu();
                     turnos.setCodpago((Codpago) jComboBoxPago.getSelectedItem());
                     turnos.setHorario((Horario) jComboBoxHorario.getSelectedItem());
                     turnos.setNombreturno(txtNombre.getText());
+                    
+                    try {
+                        turnos.setFecha(FrmCiclos.FechaDadoString(sdf.format(txtFecha.getDate())));
+                        
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, "Error en la fecha!!",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                   
                     turnos.setHora_entrada(txtInicio.getText());
                     turnos.setHora_salida(txtFin.getText());
                     if(turnos.turnos_insertar(turnos) ){
@@ -484,29 +484,6 @@ Menu obj=new Menu();
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxPagoActionPerformed
 
-    private void txtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioActionPerformed
-
-    }//GEN-LAST:event_txtInicioActionPerformed
-
-    private void jspinerinicioValueSpiner(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jspinerinicioValueSpiner
-        String spinner ="";
-        Date myInt =(Date) jspinerinicio.getValue();
-        spinner = myInt.toString();
-        //spinner =(String) jspinerinicio.getValue();
-        txtInicio.setText(spinner) ;
-    }//GEN-LAST:event_jspinerinicioValueSpiner
-
-    private void spinnerfinalvalueSpinner2(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerfinalvalueSpinner2
-        // TODO add your handling code here:
-
-        String spinner1 ="";
-        Date myInt =(Date) spinnerfinal.getValue();
-        spinner1 = myInt.toString();
-        //spinner =(String) jspinerinicio.getValue();
-
-        txtFin.setText(spinner1) ;
-    }//GEN-LAST:event_spinnerfinalvalueSpinner2
-
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
 
         try {
@@ -536,7 +513,23 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarTurnos.getModel();
         for(Turnos p : lista){
             modelo.addRow(new Object[]{ p.getIdturno(),p.getCodpago(),p.getHorario(),p.getNombreturno(),p.getHora_entrada(),p.getHora_salida()});
         }}
-                    
+            
+ private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    public static java.sql.Timestamp FechaDadoString(String fecha) {
+        //java.util.Date utilDate = new java.util.Date(fecha); //fecha actual
+        long lnMilisegundos = 0;
+        try {
+            java.util.Date date = sdf.parse(fecha);
+            lnMilisegundos = date.getTime();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(lnMilisegundos);
+        return sqlTimestamp;
+        //long lnMilisegundos = utilDate.getTime();
+    }   
+    
     /**
      * @param args the command line arguments
      */
@@ -599,7 +592,6 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarTurnos.getModel();
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner jspinerinicio;
     private javax.swing.JLabel lblBuscarCodigo;
     private javax.swing.JLabel lblCiudad;
     private javax.swing.JLabel lblCiudad1;
@@ -607,12 +599,13 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarTurnos.getModel();
     private javax.swing.JLabel lblNoH6;
     private javax.swing.JLabel lblNoH7;
     private javax.swing.JLabel lblNoH8;
+    private javax.swing.JLabel lblNoH9;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JSpinner spinnerfinal;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigobuscar;
-    private javax.swing.JTextField txtFin;
-    private javax.swing.JTextField txtInicio;
+    private com.toedter.calendar.JDateChooser txtFecha;
+    private javax.swing.JFormattedTextField txtFin;
+    private javax.swing.JFormattedTextField txtInicio;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

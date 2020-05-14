@@ -97,16 +97,9 @@ public class FrmHorario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jRadio_Hora = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
-        Date date = new Date();
-        SpinnerDateModel sm =
-        new SpinnerDateModel(date, null, null, Calendar.HOUR);
-        jspinerinicio = new javax.swing.JSpinner(sm);
-        txtInicio = new javax.swing.JTextField();
-        txtFin = new javax.swing.JTextField();
-        SpinnerDateModel fm =
-        new SpinnerDateModel(date,null,null,Calendar.HOUR_OF_DAY);
-        spinnerfinal = new javax.swing.JSpinner(fm);
         btnGenerarReporte = new javax.swing.JButton();
+        txtInicio = new javax.swing.JFormattedTextField();
+        txtFin = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -290,8 +283,8 @@ public class FrmHorario extends javax.swing.JFrame {
 
         lblNoH7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH7.setForeground(new java.awt.Color(0, 0, 102));
-        lblNoH7.setText("HORA-FECHA");
-        getContentPane().add(lblNoH7, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 242, 110, 26));
+        lblNoH7.setText("HORA(HH:MM:SS)");
+        getContentPane().add(lblNoH7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 110, 26));
 
         lblNoH8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNoH8.setForeground(new java.awt.Color(0, 0, 102));
@@ -381,35 +374,6 @@ public class FrmHorario extends javax.swing.JFrame {
         jLabel7.setText("Horario");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 47, 103, -1));
 
-        //JSpinner.DateEditor de = new JSpinner.DateEditor(jspinerinicio, "HH:mm:ss");
-        //jspinerinicio.setEditor(de);
-        jspinerinicio.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                ValueSpiner(evt);
-            }
-        });
-        getContentPane().add(jspinerinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 285, 141, -1));
-
-        txtInicio.setEditable(false);
-        txtInicio.setEnabled(false);
-        txtInicio.setFocusable(false);
-        txtInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInicioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 285, 189, -1));
-
-        txtFin.setEditable(false);
-        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 331, 189, -1));
-
-        spinnerfinal.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                valueSpinner2(evt);
-            }
-        });
-        getContentPane().add(spinnerfinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 331, 141, -1));
-
         btnGenerarReporte.setText("Generar Reporte");
         btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -417,6 +381,25 @@ public class FrmHorario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 518, -1, -1));
+
+        try {
+            txtInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 70, -1));
+
+        try {
+            txtFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFinActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 70, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -463,6 +446,7 @@ Menu obj=new Menu();
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (btnNuevo.getText().compareTo("Nuevo")==0) {
              limpiarControles();
+             txtCodigobuscar.setText("");
             btnNuevo.setText("Registrar");
         }else{
             if(btnNuevo.getText().compareTo("Registrar")==0){
@@ -568,30 +552,6 @@ Menu obj=new Menu();
         Activars();
     }//GEN-LAST:event_jRadioSalidatActionPerformed
 
-    private void txtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioActionPerformed
-       
-    
-    }//GEN-LAST:event_txtInicioActionPerformed
-
-    private void valueSpinner2(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_valueSpinner2
-        // TODO add your handling code here:
-        
-        String spinner1 ="";
-        Date myInt =(Date) spinnerfinal.getValue();
-        spinner1 = myInt.toString();
-        //spinner =(String) jspinerinicio.getValue();
-        
-        txtFin.setText(spinner1) ;
-    }//GEN-LAST:event_valueSpinner2
-
-    private void ValueSpiner(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ValueSpiner
-        String spinner ="";
-        Date myInt =(Date) jspinerinicio.getValue();
-        spinner = myInt.toString();
-        //spinner =(String) jspinerinicio.getValue();
-        txtInicio.setText(spinner) ;
-    }//GEN-LAST:event_ValueSpiner
-
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
 
         try {
@@ -604,6 +564,10 @@ Menu obj=new Menu();
         }
 
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
+
+    private void txtFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFinActionPerformed
  public void llenar(){
 DefaultTableModel modelo = (DefaultTableModel) TablaListarHorario.getModel();
         ArrayList<Horario> lista = new ArrayList<>();
@@ -741,7 +705,6 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarHorario.getModel();
     private javax.swing.JRadioButton jRadioretardo;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner jspinerinicio;
     private javax.swing.JLabel lblBuscarCodigo;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo1;
@@ -752,12 +715,11 @@ DefaultTableModel modelo = (DefaultTableModel) TablaListarHorario.getModel();
     private javax.swing.JLabel lblNoH6;
     private javax.swing.JLabel lblNoH7;
     private javax.swing.JLabel lblNoH8;
-    private javax.swing.JSpinner spinnerfinal;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigobuscar;
-    private javax.swing.JTextField txtFin;
+    private javax.swing.JFormattedTextField txtFin;
     private javax.swing.JTextField txtIngresot;
-    private javax.swing.JTextField txtInicio;
+    private javax.swing.JFormattedTextField txtInicio;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRetardo;
     private javax.swing.JTextField txtSalidatardia;

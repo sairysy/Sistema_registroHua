@@ -112,7 +112,11 @@ public class Horario {
     @Override
     public String toString() {
         return getNombre();
+       // getHora_final();
+        
     }
+      
+   
     public static ArrayList<Horario> horario_buscartodos() throws Exception
     {
          //CREO LISTA QUE RECIBIRA LOS DATOS DEL RESULSET

@@ -14,10 +14,12 @@ import ReglasDeNegocio.Departamento;
 import ReglasDeNegocio.Empresa;
 import ReglasDeNegocio.Horario;
 import ReglasDeNegocio.Turnos;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -304,9 +306,10 @@ Menu obj=new Menu();
                     Codpago codpago = list.get(i).getCodpago();
                     Horario horario = list.get(i).getHorario();
                     String name = list.get(i).getNombreturno();
+                    Date z = list.get(i).getFecha();
                     String hq = list.get(i).getHora_entrada();
                     String hw = list.get(i).getHora_salida();
-                   jComboBoxTurno.addItem(new Turnos(id,codpago,horario,name,hq,hw));
+                   jComboBoxTurno.addItem(new Turnos(id,codpago,horario,name,z,hq,hw));
                 }
             }   else{
                
@@ -320,6 +323,7 @@ Menu obj=new Menu();
         // TODO add your handling code here:
         
         Departamento departamento = new Departamento();
+        Empresa empresa = new Empresa();
         try {
             limpiarControles();
             departamento = departamento.departamento_buscarporid(
@@ -327,7 +331,7 @@ Menu obj=new Menu();
             if (departamento != null) {
                 txtCodigo.setText(Integer.toString(departamento.getIddepartamento()));
                 txtNombre.setText(departamento.getNombredepartamento());
-               
+                
                 
                 
             }
@@ -344,6 +348,7 @@ Menu obj=new Menu();
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (btnNuevo.getText().compareTo("Nuevo")==0) {
              limpiarControles();
+             txtCodigobuscar.setText("");
             btnNuevo.setText("Registrar");
         }else{
             if(btnNuevo.getText().compareTo("Registrar")==0){

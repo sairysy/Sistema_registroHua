@@ -35,6 +35,8 @@ public class FrmCiclos extends javax.swing.JFrame {
         llenar();
     }
   private void limpiarControles() {
+      
+       
         txtCodigo.setText("");
         txtFecha.setDate(null);
         txtTipo.setText("");
@@ -279,6 +281,7 @@ Menu obj=new Menu();
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (btnNuevo.getText().compareTo("Nuevo")==0) {
             limpiarControles();
+            txtCodigobuscar.setText("");
             btnNuevo.setText("Registrar");
         }else{
             if(btnNuevo.getText().compareTo("Registrar")==0){

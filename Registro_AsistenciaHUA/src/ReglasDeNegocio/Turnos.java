@@ -25,18 +25,19 @@ public class Turnos {
   private Codpago codpago;
   private Horario horario;
   private String nombreturno;
-  //private Date fecha;
+  private Date fecha;
   private String hora_entrada;
   private String hora_salida;
 
     public Turnos() {
     }
 
-    public Turnos(int idturno, Codpago codpago, Horario horario, String nombreturno, String hora_entrada, String hora_salida) {
+    public Turnos(int idturno, Codpago codpago, Horario horario, String nombreturno, Date fecha, String hora_entrada, String hora_salida) {
         this.idturno = idturno;
         this.codpago = codpago;
         this.horario = horario;
         this.nombreturno = nombreturno;
+        this.fecha = fecha;
         this.hora_entrada = hora_entrada;
         this.hora_salida = hora_salida;
     }
@@ -71,6 +72,14 @@ public class Turnos {
 
     public void setNombreturno(String nombreturno) {
         this.nombreturno = nombreturno;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getHora_entrada() {
@@ -123,6 +132,7 @@ public class Turnos {
               obj.setHorario(horarios);
               
               obj.setNombreturno(rs.getString("pnombreturno"));
+              obj.setFecha(rs.getDate("pfecha"));
               obj.setHora_entrada(rs.getString("phora_entrada"));
               obj.setHora_salida(rs.getString("phora_salida"));
              
@@ -169,6 +179,7 @@ public class Turnos {
               obj.setHorario(horarios);
               
               obj.setNombreturno(rs.getString("pnombreturno"));
+              obj.setFecha(rs.getDate("pfecha"));
               obj.setHora_entrada(rs.getString("phora_entrada"));
               obj.setHora_salida(rs.getString("phora_salida"));
               lista.add(obj);
@@ -194,15 +205,16 @@ public class Turnos {
           //CREAMOS EL PRIMER COMANDO QUE SERA AÑADIDO AL ARRAYLIST D COMANDOS
           Comando cmd= new Comando();
           //SETEAMOS LA FUNCION AL COMAND0
-          cmd.setSetenciaSql("select * from public.turno_insertar(?,?,?,?,?)");
+          cmd.setSetenciaSql("select * from public.turno_insertar(?,?,?,?,?,?)");
           //CREAMOS EL ARRALIST DE PARAMETROS PARA ASIGANR A MI PRIMER COMANDO
           ArrayList<Parametro> parametros = new ArrayList<Parametro>();
           //llenamos el arraylist con todos los parametros
           parametros.add(new Parametro(1, turnos.getCodpago().getIdcodpago()));
           parametros.add(new Parametro(2, turnos.getHorario().getIdhorario()));
           parametros.add(new Parametro(3,turnos.getNombreturno()));
-          parametros.add(new Parametro(4, turnos.getHora_entrada()));
-          parametros.add(new Parametro(5, turnos.getHora_salida()));
+          parametros.add(new Parametro(4,turnos.getFecha()));
+          parametros.add(new Parametro(5, turnos.getHora_entrada()));
+          parametros.add(new Parametro(6, turnos.getHora_salida()));
          
           //llenar el comando con los parametros
           cmd.setLstParametros(parametros);
@@ -228,7 +240,7 @@ public class Turnos {
           //CREAMOS EL PRIMER COMANDO QUE SERA AÑADIDO AL ARRAYLIST D COMANDOS
           Comando cmd= new Comando();
           //SETEAMOS LA FUNCION AL COMAND0
-          cmd.setSetenciaSql("select * from public.turno_editar(?,?,?,?,?,?)");
+          cmd.setSetenciaSql("select * from public.turno_editar(?,?,?,?,?,?,?)");
           //CREAMOS EL ARRALIST DE PARAMETROS PARA ASIGANR A MI PRIMER COMANDO
           ArrayList<Parametro> parametros = new ArrayList<Parametro>();
           //llenamos el arraylist con todos los parametros
@@ -236,8 +248,9 @@ public class Turnos {
           parametros.add(new Parametro(2, turnos.getCodpago().getIdcodpago()));
           parametros.add(new Parametro(3, turnos.getHorario().getIdhorario()));
           parametros.add(new Parametro(4, turnos.getNombreturno()));
-          parametros.add(new Parametro(5, turnos.getHora_entrada()));
-          parametros.add(new Parametro(6, turnos.getHora_salida()));
+          parametros.add(new Parametro(5, turnos.getFecha()));
+          parametros.add(new Parametro(6, turnos.getHora_entrada()));
+          parametros.add(new Parametro(7, turnos.getHora_salida()));
           //llenar el comando con los parametros
           cmd.setLstParametros(parametros);
           comandos.add(cmd);

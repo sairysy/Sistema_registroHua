@@ -12,6 +12,8 @@ import ReglasDeNegocio.Ciudad;
 import ReglasDeNegocio.Empresa;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,7 +26,12 @@ import reportes.Reportes;
 //////import reportes.Reportes;
 
 public class FrmEmpresa extends javax.swing.JFrame {
-
+ public static final String URL = "jdbc:postgresql://localhost:5432/andino"; //Direccion, puerto y nombre de la Base de Datos
+    public static final String USERNAME = "postgres"; //Usuario de Acceso a MySQL
+    public static final String PASSWORD = "123"; //Password del usuario
+    
+    PreparedStatement ps;
+    ResultSet rs;
     /**
      * Creates new form Empresa
      */
@@ -360,12 +367,15 @@ Menu obj=new Menu();
         // TODO add your handling code here:
         
         Empresa empresa = new Empresa();
+        Ciudad ciudad = new Ciudad();
         try {
             limpiarControles();
             empresa = empresa.empresa_buscarporid(
                 Integer.parseInt(txtCodigobuscar.getText()));
             if (empresa != null) {
                 txtCodigo.setText(Integer.toString(empresa.getIdempresa()));
+               // jComboBoxCiudad.setSelectedItem(ciudad);
+                jComboBoxCiudad.getSelectedItem();
                 txtNombre.setText(empresa.getNombreempresa());
                 txtDireccion1.setText(empresa.getDireccion1());
                 txtDireccion2.setText(empresa.getDireccion2());
@@ -396,6 +406,8 @@ Menu obj=new Menu();
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (btnNuevo.getText().compareTo("Nuevo")==0) {
              limpiarControles();
+             txtCodigobuscar.setText("");
+             
             btnNuevo.setText("Registrar");
         }else{
             if(btnNuevo.getText().compareTo("Registrar")==0){
