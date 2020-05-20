@@ -26,12 +26,7 @@ import reportes.Reportes;
 //////import reportes.Reportes;
 
 public class FrmEmpresa extends javax.swing.JFrame {
- public static final String URL = "jdbc:postgresql://localhost:5432/andino"; //Direccion, puerto y nombre de la Base de Datos
-    public static final String USERNAME = "postgres"; //Usuario de Acceso a MySQL
-    public static final String PASSWORD = "123"; //Password del usuario
-    
-    PreparedStatement ps;
-    ResultSet rs;
+
     /**
      * Creates new form Empresa
      */
@@ -375,7 +370,7 @@ Menu obj=new Menu();
             if (empresa != null) {
                 txtCodigo.setText(Integer.toString(empresa.getIdempresa()));
                // jComboBoxCiudad.setSelectedItem(ciudad);
-                jComboBoxCiudad.getSelectedItem();
+                //
                 txtNombre.setText(empresa.getNombreempresa());
                 txtDireccion1.setText(empresa.getDireccion1());
                 txtDireccion2.setText(empresa.getDireccion2());
